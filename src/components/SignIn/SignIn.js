@@ -18,15 +18,27 @@ class SignIn extends React.Component {
   };
 
   onSubmitSignIn = () => {
-    console.log(this.state);
-    this.props.onRouteChange('home');
+    fetch('http://localhost:3000/signin', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: this.state.signInEmail,
+        password: this.state.signInPassword
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data === 'success') {
+          this.props.onRouteChange('home');
+        }
+      });
   };
 
   render() {
     return (
       <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
         <main className="pa4 black-80">
-          <form className="measure">
+          <form className="measure" onSubmit={event => event.preventDefault()}>
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="f1 fw6 ph0 mh0">Sign In</legend>
               <div className="mt3">
@@ -34,6 +46,7 @@ class SignIn extends React.Component {
                   Email
                 </label>
                 <input
+                  onChange={this.onEmailChange}
                   className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="email"
                   name="email-address"
@@ -45,6 +58,7 @@ class SignIn extends React.Component {
                   Password
                 </label>
                 <input
+                  onChange={this.onPasswordChange}
                   className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="password"
                   name="password"
