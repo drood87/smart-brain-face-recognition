@@ -47,11 +47,11 @@ class App extends Component {
     isSignedIn: false
   };
 
-  componentDidMount() {
-    fetch('http://localhost:3000')
-      .then(res => res.json())
-      .then(console.log);
-  }
+  // componentDidMount() {
+  //   fetch('http://localhost:3000')
+  //     .then(res => res.json())
+  //     .then(console.log);
+  // }
 
   calculateFaceLocation = data => {
     const clarifaiFace =
