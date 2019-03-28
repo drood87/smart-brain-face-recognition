@@ -54,6 +54,16 @@ class App extends Component {
     }
   };
 
+  loadUser = data => {
+    this.setState({
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    });
+  };
+
   // componentDidMount() {
   //   fetch('http://localhost:3000')
   //     .then(res => res.json())
@@ -129,7 +139,10 @@ class App extends Component {
         ) : route === 'signin' ? (
           <SignIn onRouteChange={this.onRouteChange} />
         ) : (
-          <Register onRouteChange={this.onRouteChange} />
+          <Register
+            onRouteChange={this.onRouteChange}
+            loadUser={this.loadUser}
+          />
         )}
       </div>
     );
