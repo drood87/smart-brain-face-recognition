@@ -57,6 +57,7 @@ class Register extends React.Component {
                   type="text"
                   name="name"
                   id="name"
+                  onChange={this.onNameChange}
                 />
                 <label className="db fw6 lh-copy f6" htmlFor="email-address">
                   Email
@@ -66,7 +67,7 @@ class Register extends React.Component {
                   type="email"
                   name="email-address"
                   id="email-address"
-                  onChange={this.onNameChange}
+                  onChange={this.onEmailChange}
                 />
               </div>
               <div className="mv3">
