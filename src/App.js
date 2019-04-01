@@ -15,7 +15,7 @@ import './App.css';
 // console.log(`${process.env.REACT_APP_CLARIFAI_API_KEY}`);
 
 const app = new Clarifai.App({
-  apiKey: 'nope'
+  apiKey: 'e7621d6a0ca742cb96e97f4e428b2421'
 });
 
 const particlesOptions = {
@@ -31,36 +31,48 @@ const particlesOptions = {
 };
 
 class App extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     input: '',
-  //     imageUrl: ''
-  //   };
-  // }
+  constructor() {
+    super();
+    this.state = {
+      input: '',
+      imageUrl: '',
+      box: {},
+      route: 'signin',
+      isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: ''
+      }
+    };
+  }
 
-  state = {
-    input: '',
-    imageUrl: '',
-    box: {},
-    route: 'signin',
-    isSignedIn: false,
-    user: {
-      id: '',
-      name: '',
-      email: '',
-      entries: 0,
-      joined: ''
-    }
-  };
+  // state = {
+  //   input: '',
+  //   imageUrl: '',
+  //   box: {},
+  //   route: 'signin',
+  //   isSignedIn: false,
+  //   user: {
+  //     id: '',
+  //     name: '',
+  //     email: '',
+  //     entries: 0,
+  //     joined: ''
+  //   }
+  // };
 
   loadUser = data => {
     this.setState({
-      id: data.id,
-      name: data.name,
-      email: data.email,
-      entries: data.entries,
-      joined: data.joined
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined
+      }
     });
   };
 
@@ -107,7 +119,11 @@ class App extends Component {
             body: JSON.stringify({
               id: this.state.user.id
             })
-          });
+          })
+            .then(res => res.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, { entries: count }));
+            });
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
