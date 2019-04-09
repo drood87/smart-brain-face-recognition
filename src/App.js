@@ -9,10 +9,6 @@ import Register from './components/Register/Register';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import './App.css';
 
-// const API_KEY =
-
-// console.log(`${process.env.REACT_APP_CLARIFAI_API_KEY}`);
-
 const particlesOptions = {
   particles: {
     number: {
